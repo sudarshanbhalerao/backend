@@ -14,8 +14,8 @@ import com.petclinic.api.resources.Utils;
 
 public class PetTypesSteps {
 
-	String baseURI, basePath, getAPIPath;
-	String[] expectedPetTypes = {"cat","dog","lizard","snake", "bird", "hamster"};
+	String baseURI, basePath, getAPIPath, petType;
+	String[] expectedPetTypes;
 	ArrayList<String> petNames = new ArrayList<String>();
 	Response response;
 
@@ -23,11 +23,13 @@ public class PetTypesSteps {
 		baseURI = Utils.getPropertyValue("baseURI");
 		basePath = Utils.getPropertyValue("basePath");
 		getAPIPath = Utils.getPropertyValue("getAPIPath");
+		petType = Utils.getPropertyValue("petTypes");
+		expectedPetTypes = petType.split(",");
 	}
 
 	@Given("^a request to get pet types in Pet Clinic Application API$")
 	public void callGetAPI() { 
-		try {			
+		try {		
 			//Calling get API to retrieve pet details
 			response = given().baseUri(baseURI).header("Content-Type", "application/json").log().all().
 					when().get(basePath + getAPIPath).andReturn();
@@ -45,6 +47,7 @@ public class PetTypesSteps {
 	public void verifyPetTypes() {
 		Assert.assertEquals(response.getStatusCode(), HttpStatus.SC_OK);
 		Assert.assertEquals(response.getStatusLine(), "HTTP/1.1 200 ");
+		Assert.assertEquals(petNames.size(), expectedPetTypes.length);
 		//Comparing API returned value with expected
 		for(int i = 0; i < petNames.size(); i++){
 			Assert.assertEquals("Pet types mismatched", expectedPetTypes[i], petNames.get(i));

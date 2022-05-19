@@ -14,7 +14,5 @@ public class Utils {
 		FileInputStream fis = new FileInputStream(userDirectory + propertyPath);
 		prop.load(fis);
 		return prop.getProperty(key);
-
 	}
-
 }
