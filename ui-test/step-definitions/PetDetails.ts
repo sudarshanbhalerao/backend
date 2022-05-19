@@ -33,11 +33,10 @@ When('user has entered name,birth date,Pet type and clicked on Add pet button', 
 });
 
 When('Pet details should be successfully saved', async function() {
-    await petDetails.verifySavedPetDetails();
-    const nameDisplayed = await petDetails.verifyPetNameAdded();
-    const dobDisplayed = await petDetails.verifyPetDOBAdded();
-    const petTypeDisplayed = await petDetails.verifyPetTypeAdded();
-    expect(nameDisplayed).to.equal(1);
-    expect(dobDisplayed).to.equal(1);
-    expect(petTypeDisplayed).to.equal(1);
+    const name = await petDetails.verifyPetNameAdded();
+    const dob = await petDetails.verifyPetDOBAdded();
+    const type = await petDetails.verifyPetTypeAdded();
+    expect(name).to.equal(data.TestData.PetDetails.petName);
+    expect(dob).to.equal(data.TestData.PetDetails.dob);
+    expect(type).to.equal(data.TestData.PetDetails.type);
 });

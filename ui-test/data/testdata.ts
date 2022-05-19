@@ -12,7 +12,8 @@ const data = {
     },
     PetDetails: {
       petName: "lucky",
-      dob: "2022-01-01"
+      dob: "2022-01-01",
+      type: ""
     },
     ExpectedPetTypes: ["bird", "cat", "dog", "hamster", "lizard", "snake"],
     ActualPetTypes: []

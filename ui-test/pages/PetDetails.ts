@@ -16,7 +16,9 @@ const selectors = {
     petType: 'select#type',
     petTypeOptions: '//*[@id="type"]/option',
     addPetButton2: 'button.btn.btn-default',    
-    addedPetDetails: '/html/body/div/div/table[2]/tbody/tr/td[1]/dl/dd'
+    addedPetName: '/html/body/div/div/table[2]/tbody/tr/td[1]/dl/dd[1]',
+    addedPetDob: '/html/body/div/div/table[2]/tbody/tr/td[1]/dl/dd[2]',
+    addedPetType: '/html/body/div/div/table[2]/tbody/tr/td[1]/dl/dd[3]'
 }
 
 enum PetTypes {
@@ -78,6 +80,8 @@ class PetDetails extends FedexBasePage {
     public async addingNewPet() {
         await this.sendKeys('petName',data.TestData.PetDetails.petName);
         await this.sendKeys('birthDate',data.TestData.PetDetails.dob);
+        const type = await (await $(selectors.petTypeOptions+"[1]")).getText();
+        data.TestData.PetDetails.type = type;
         await this.click('addPetButton2');
     }
 
@@ -92,35 +96,31 @@ class PetDetails extends FedexBasePage {
         }
     }
 
-    public async verifySavedPetDetails() {
-        const length = await $$('addedPetDetails').length;
-        console.log("length: "+length);
-    }
     /**
      * This method will verify new pet name added
      */
     public async verifyPetNameAdded(): Promise<any> {
-        var page = await browser.getPageSource();
-        var available = page.match(data.TestData.PetDetails.petName).length;
-        return available;
+        await this.waitForElementVisible('addedPetName', timeout.MEDIUM);
+        const petName = await (await $(selectors.addedPetName)).getText();
+        return petName;
     }
 
     /**
      * This method will verify new pet date of birth added
      */
     public async verifyPetDOBAdded(): Promise<any> {
-        var page = await browser.getPageSource();
-        var available = page.match(data.TestData.PetDetails.dob).length;
-        return available;
+        await this.waitForElementVisible('addedPetDob', timeout.MEDIUM);
+        const dob = await (await $(selectors.addedPetDob)).getText();
+        return dob;
     }
 
     /**
      * This method will verify new pet type added
      */
     public async verifyPetTypeAdded(): Promise<any> {
-        var page = await browser.getPageSource();
-        var available = page.match(data.TestData.ExpectedPetTypes[0]).length;
-        return available;
+        await this.waitForElementVisible('addedPetType', timeout.MEDIUM);
+        const type = await (await $(selectors.addedPetType)).getText();
+        return type;
     }
 }
 export const petDetails = new PetDetails();
