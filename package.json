@@ -1,0 +1,38 @@
+{
+  "name": "petclinic-test-automation",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "npx wdio run wdio-ts-cucumber-config.ts",
+    "lint": "eslint . --ext .ts,.js --quiet",
+    "lint-report": "eslint . --ext .js,.ts -f json -o report.json",
+    "generate-report": "npx marge reports/merged-results.json --reportDir reports -f report.html --charts true -t 'Automation-results' -p 'Execution-Report'",
+    "clean-reports": "node -e require('fs-extra').emptyDir('./reports');"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@cucumber/cucumber": "^7.3.0",
+    "@types/chai": "^4.2.21",
+    "@types/date-and-time": "^0.13.0",
+    "eslint": "^7.31.0",
+    "eslint-html-reporter": "^0.7.4",
+    "eslint-plugin-fedex-ui-custom-rules": "^1.3.6",
+    "fs-extra": "^10.0.0",
+    "qcoe-fedex-ui-test-helpers": "^1.0.1-ALPHA-SNAPSHOT",
+    "qcoe-fedex-ui-test-wdio": "^1.1.0",
+    "soft-assert": "^0.2.6",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.1.3",
+    "wdio-chromedriver-service": "^7.2.3"
+  },
+  "dependencies": {
+    "chromedriver": "^100.0.0",
+    "date-and-time": "^2.0.1",
+    "moment": "^2.29.1",
+    "properties-reader": "^2.2.0",
+    "qs": "^6.10.1",
+    "save-dev": "0.0.1-security"
+  }
+}

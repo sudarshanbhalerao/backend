@@ -1,0 +1,39 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "plugins": [
+      "@typescript-eslint",
+      "fedex-ui-custom-rules"
+    ],
+    "extends": [
+      "eslint:recommended",
+      "plugin:@typescript-eslint/eslint-recommended",
+      "plugin:@typescript-eslint/recommended"
+    ],
+    "env": {
+        "browser": true,
+        "node": true,
+        "mocha": true
+    },
+    "parserOptions": {
+          "warnOnUnsupportedTypeScriptVersion": true
+    },
+    "rules": {
+      "no-console": 2, // Remember, this means error!
+      "fedex-ui-custom-rules/missing-assertion": 2,
+      "fedex-ui-custom-rules/no-browser-pause-wdio": 2,
+      "fedex-ui-custom-rules/no-browser-sleep-prtr":2,
+      "fedex-ui-custom-rules/no-explicit-element":2,
+      "fedex-ui-custom-rules/no-implicit-wait":1,
+      "fedex-ui-custom-rules/no-protractor-commands":2,
+      "fedex-ui-custom-rules/no-wdio-commands":2
+    },
+    "overrides": [
+      {
+        "files": ["*.js"],
+        "rules": {
+          "@typescript-eslint/no-var-requires": "off"
+        }
+      }
+  ]
+  }
