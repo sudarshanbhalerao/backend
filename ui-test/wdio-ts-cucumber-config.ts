@@ -4,6 +4,7 @@ import options from './utils/cucumber.report.options';
 exports.config = {
   runner: 'local',
   specs: [
+    './features/AddOwnerValidation.feature',
     './features/petDetails.feature',
   ],
   maxInstances: 1,

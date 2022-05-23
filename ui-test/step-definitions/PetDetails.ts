@@ -4,7 +4,7 @@ import { petDetails } from '../pages/PetDetails'
 import { expect } from 'chai';
 
 Given('user successfully logged on to pet clinic application', async function() {
-    await browser.url(data.AppURL.URL);
+    await browser.url(data.APP_URL.BASE_URL);
     await browser.maximizeWindow();
 });
 
