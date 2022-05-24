@@ -12,7 +12,8 @@ const selectors = {
     LastnameFieldErrorMsg: '//*[@id="add-owner-form"]/div[1]/div[2]/div/span[2]',
     addressFieldErrorMsg: '//*[@id="add-owner-form"]/div[1]/div[3]/div/span[2]',
     cityFieldErrorMsg: '//*[@id="add-owner-form"]/div[1]/div[4]/div/span[2]',
-    telephoneFieldErrorMsg: '//*[@id="add-owner-form"]/div[1]/div[5]/div/span[2]',
+    telephoneFieldErrorMsg: 'span.help-inline',
+    //*[@id="add-owner-form"]/div[1]/div[5]/div/span[2]',
     checkOwner: '/html/body/div/div/table[1]'
 }
 
@@ -45,7 +46,7 @@ class HomePage extends FedexBasePage {
         await this.waitForElementVisible('cityField', timeout.LONG)
         await this.sendKeys('cityField', City)
     }
-    async telephoneNumberValidation(telephone: any) {
+    async telephoneNumberValidation(telephone: string) {
         await this.waitForElementVisible('telephoneField', timeout.LONG)
         await this.sendKeys('telephoneField', telephone)
     }
@@ -54,34 +55,33 @@ class HomePage extends FedexBasePage {
         await this.click('nextAddOwner');
     }
     async firstnameFieldErrorMsgValidation(): Promise<string> {
-        let FirstnameFieldErrorMsg = await (await this.waitForElementVisible('FirstnameFieldErrorMsg', timeout.LONG)).getText()
+        const FirstnameFieldErrorMsg = await (await this.waitForElementVisible('FirstnameFieldErrorMsg', timeout.LONG)).getText()
         this.log("FirstName field " + FirstnameFieldErrorMsg)
         return FirstnameFieldErrorMsg;
     }
     async lastnameFieldErrorMsgValidation(): Promise<string> {
-        let LastnameFieldErrorMsg = await (await this.waitForElementVisible('LastnameFieldErrorMsg', timeout.LONG)).getText()
+        const LastnameFieldErrorMsg = await (await this.waitForElementVisible('LastnameFieldErrorMsg', timeout.LONG)).getText()
         this.log("LastName field " + LastnameFieldErrorMsg);
         return LastnameFieldErrorMsg;
     }
     async addressFieldErrorMsgValidation(): Promise<string> {
-        let AddressFieldErrorMsg = await (await this.waitForElementVisible('addressFieldErrorMsg', timeout.LONG)).getText()
+        const AddressFieldErrorMsg = await (await this.waitForElementVisible('addressFieldErrorMsg', timeout.LONG)).getText()
         this.log("Address field " + AddressFieldErrorMsg);
         return AddressFieldErrorMsg;
     }
     async cityFieldErrorMsgValidation(): Promise<string> {
-        let CityFieldErrorMsg = await (await this.waitForElementVisible('cityFieldErrorMsg', timeout.LONG)).getText()
+        const CityFieldErrorMsg = await (await this.waitForElementVisible('cityFieldErrorMsg', timeout.LONG)).getText()
         this.log("City field " + CityFieldErrorMsg);
         return CityFieldErrorMsg;
     }
     async telephoneErrorMsgValidation() {
-        let TelephoneFieldFirstErrorMsg = await (await (await this.waitForElementVisible('telephoneFieldErrorMsg', timeout.LONG)).getText()).split('\n');
+        const TelephoneFieldFirstErrorMsg = await (await (await this.waitForElementVisible('telephoneFieldErrorMsg', timeout.LONG)).getText()).split('\n');
         this.log("TelephoneFieldFirstErrorMsg: " + TelephoneFieldFirstErrorMsg[0])
-        console.log("TelephoneFieldFirstErrorMsg1: " + TelephoneFieldFirstErrorMsg[1])
         return [TelephoneFieldFirstErrorMsg[0], TelephoneFieldFirstErrorMsg[1]];
 
     }
     async checkOwnerInformationExists() {
-        let addOwnerInfo = await (await this.waitForElementVisible('checkOwner', timeout.LONG)).isDisplayed()
+        const addOwnerInfo = await (await this.waitForElementVisible('checkOwner', timeout.LONG)).isDisplayed()
         this.log("ISAddOwnerInfoDispalyed? " + addOwnerInfo)
         return addOwnerInfo;
     }

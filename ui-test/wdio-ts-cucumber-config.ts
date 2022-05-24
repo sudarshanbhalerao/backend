@@ -4,17 +4,16 @@ import options from './utils/cucumber.report.options';
 exports.config = {
   runner: 'local',
   specs: [
-    './features/AddOwnerValidation.feature',
     './features/petDetails.feature',
+    './features/AddOwnerValidation.feature',
+    './features/AddNewPet.feature',
+    './features/AddVisit.feature',
+    './features/AddOwner.feature'
   ],
   maxInstances: 1,
   
   capabilities: [{
-    browserName: 'chrome',
-	'goog:chromeOptions': {
-       //below code for jenkins pipeline 
-      //args: ['--headless','--proxy-server=http://10.205.187.100:9090', '--disable-dev-shm-usage', '--no-sandbox', '--start-maximized', '--verbose'],
-    }
+    browserName: 'chrome'
   }],
   
   logLevel: 'info',
@@ -25,6 +24,7 @@ exports.config = {
   },
   
   framework: 'cucumber',
+  ignoreUndefinedDefinitions:true,
   cucumberOpts: {
     require: [
       "./step-definitions/*.ts"

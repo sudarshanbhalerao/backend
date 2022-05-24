@@ -23,25 +23,16 @@ class PetDetails extends FedexBasePage {
         super (selectors, '');
     }
 
-    /**
-     * This method is for navigating to find owner page
-     */
     public async navigateToFindOwnerPage() {
         await this.waitForElementClickable('findOwnerLink', timeout.MEDIUM);
         await this.click('findOwnerLink');
     }
 
-    /**
-     * This method is for navigating to add new owner page
-     */
     public async navigateToAddOwnerPage() {
         await this.waitForElementClickable('addOwnerButton', timeout.MEDIUM);
         await this.click('addOwnerButton');
     }
 
-    /**
-     * This method is for adding new owner
-     */
     public async addingNewOwner() {
         await this.sendKeys('firstNameInput',data.TestData.OwnerDetails.firstName);
         await this.sendKeys('lastNameInput',data.TestData.OwnerDetails.lastName);
@@ -52,25 +43,18 @@ class PetDetails extends FedexBasePage {
         await this.click('addOwnerButton2');
     }
 
-    /**
-     * This method is for navigating to add pet page
-     */
     public async navigateToAddPetPage() {
         await this.waitForElementClickable('addPetButton', timeout.MEDIUM);
         await this.click('addPetButton');
     }
 
-    /**
-     * This method is for clicking pet type
-     */
-    public async clickPetType() {
-        await this.click('petType');
+    public async addingPet() {
+        await this.sendKeys('petName',data.TestData.PetDetails.petName);
+        await this.sendKeys('birthDate',data.TestData.PetDetails.dob);
     }
 
-    /**
-     * This method is for verifying all pet types displayed under type field
-     */
-    public async verifyPetDetails() {
+    public async AddedPetDetails() {
+        await this.click('petType');
         let petTypeOptions = $$(selectors.petTypeOptions);
         for(let i=1; i<=(await petTypeOptions).length; i++) {
             let type = await (await $(selectors.petTypeOptions+"["+i+"]")).getText();

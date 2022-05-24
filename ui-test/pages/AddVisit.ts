@@ -10,38 +10,39 @@ const selectors = {
     cityInput: 'input#city',
     telephoneInput: 'input#telephone',
     addOwnerButton2: 'button.btn.btn-default',
-    addPetButton: '/html/body/div/div/a[2]',
+    addPetButton:'/html/body/div/div/a[2]',
     petName: 'input#name.form-control',
     birthDate: 'input#birthDate.form-control',
-    petType: 'select#type',
-    petTypeOptions: '//*[@id="type"]/option'
+    petType:'*[@id="type"]',
+    petTypeOptions:'select#type',
+    addPet2:'button.btn.btn-default',
+    addVisitlink:"//a[contains(text(),'Visit')]",
+    description:'//*[@id="description"]',
+    addvisitButton:'button.btn.btn-default'
 }
 
-class PetDetails extends FedexBasePage {
+class AddVisit extends FedexBasePage {
+    waitForElementClickable: any;
+    click: any;
+    sendKeys: any;
+    
 
     constructor() {
         super (selectors, '');
     }
 
-    /**
-     * This method is for navigating to find owner page
-     */
     public async navigateToFindOwnerPage() {
         await this.waitForElementClickable('findOwnerLink', timeout.MEDIUM);
         await this.click('findOwnerLink');
     }
+    
 
-    /**
-     * This method is for navigating to add new owner page
-     */
     public async navigateToAddOwnerPage() {
         await this.waitForElementClickable('addOwnerButton', timeout.MEDIUM);
         await this.click('addOwnerButton');
     }
+    
 
-    /**
-     * This method is for adding new owner
-     */
     public async addingNewOwner() {
         await this.sendKeys('firstNameInput',data.TestData.OwnerDetails.firstName);
         await this.sendKeys('lastNameInput',data.TestData.OwnerDetails.lastName);
@@ -51,31 +52,41 @@ class PetDetails extends FedexBasePage {
         await this.waitForElementClickable('addOwnerButton2', timeout.MEDIUM);
         await this.click('addOwnerButton2');
     }
+    
 
-    /**
-     * This method is for navigating to add pet page
-     */
     public async navigateToAddPetPage() {
         await this.waitForElementClickable('addPetButton', timeout.MEDIUM);
         await this.click('addPetButton');
     }
 
-    /**
-     * This method is for clicking pet type
-     */
-    public async clickPetType() {
-        await this.click('petType');
+    public async addingPet() {
+        await this.sendKeys('petName',data.TestData.PetDetails.petName);
+        await this.sendKeys('birthDate',data.TestData.PetDetails.dob);
     }
 
-    /**
-     * This method is for verifying all pet types displayed under type field
-     */
     public async verifyPetDetails() {
-        let petTypeOptions = $$(selectors.petTypeOptions);
-        for(let i=1; i<=(await petTypeOptions).length; i++) {
-            let type = await (await $(selectors.petTypeOptions+"["+i+"]")).getText();
-            data.TestData.ActualPetTypes.push(type);
-        }
+        await this.click('petType');
+    
+     }
+    public async navigateToPetdetailsPage() {
+        await this.sendKeys('petName',data.TestData.PetDetails.petName);
+        await this.sendKeys('birthDate',data.TestData.PetDetails.dob);
+        await this.waitForElementClickable('addPet2', timeout.MEDIUM);
+        await this.click('addPet2');
+        
+        
     }
+
+    public async navigateToAddVisitPage() {
+        await this.click('addVisitlink');
+       
+    }
+    public async addingVisit() {
+        await this.sendKeys('description',data.TestData._AddVisit.Descriptoin);
+        await this.click('addvisitButton');
+       
+        
+    }
+    
 }
-export const petDetails = new PetDetails();
+export const addVisit = new AddVisit();

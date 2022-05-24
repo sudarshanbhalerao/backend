@@ -1,4 +1,5 @@
 Feature: Error message shown while adding new owner, if mandatory fields are empty
+
     Background: Login into Application
         Given User has landed on add Owner UI page
     @firstname
@@ -21,7 +22,12 @@ Feature: Error message shown while adding new owner, if mandatory fields are emp
     Scenario: Verify user gets error messages if telephone field is empty
         When User has not entered telephone field
         Then Error message should be displayed to the user below the telephone field
-    @telephonedigits
+    @invalidtelephone
     Scenario: Verify user gets error messages if telephone field is empty
-        When User has entered invalid digits on telephone field
+        When User has entered invalid telephone number
         Then Numeric error message gets displayed to the user below the telephone field
+
+    @invalidtelephoneDigits
+    Scenario: Verify user gets error messages if telephone field is empty
+        When User has entered invalid telephone digits in telephone field
+        Then Error message gets displayed to the user below the telephone field
