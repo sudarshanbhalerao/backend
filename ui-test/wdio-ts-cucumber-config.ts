@@ -52,7 +52,7 @@ exports.config = {
     reporting.setupReporter(this);
   },
 
-  onComplete: function (exitCode: number, config: unknown, capabilities: unknown, results: unknown) {
+  onComplete: function (exitCode: number, config: unknown,) {
     reporting.generateReport(config, options);
   },
 

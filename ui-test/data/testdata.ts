@@ -13,7 +13,8 @@ const data = {
         address: "112, New street, India",
         city: "Chennai",
         telephone: "9876543622",
-        invalidtelephone: "abcd123e"
+        invalidtelephone: "abcd123e",
+        digits: '9876543647890'
     },
     FieldValidationErrorMessage: {
         Errormsg: "must not be empty",

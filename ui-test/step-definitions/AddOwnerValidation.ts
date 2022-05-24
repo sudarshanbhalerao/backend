@@ -1,6 +1,7 @@
 import { Given, Then, When } from '@cucumber/cucumber';
 import data from "../data/testdata";
 import { expect } from "chai";
+//import * as assertion from 'soft-assert/lib/assertion'
 import { homePage } from "../pages/HomePage";
 
 Given(/^User has landed on add Owner UI page$/, async function () {
@@ -74,10 +75,11 @@ When(/^User has not entered telephone field$/, async function () {
 });
 Then(/^Error message should be displayed to the user below the telephone field$/, async function () {
     const TelephoneEmptyFieldValidation = await homePage.telephoneErrorMsgValidation()
+  
     expect(TelephoneEmptyFieldValidation[0]).to.be.equal(data.FieldValidationErrorMessage.TelephonevalidationErrorMsg)
     expect(TelephoneEmptyFieldValidation[1]).to.be.equal(data.FieldValidationErrorMessage.Errormsg)
 });
-When(/^User has entered invalid digits on telephone field$/, async function () {
+When(/^User has entered invalid telephone number$/, async function () {
     await homePage.firstnameFieldValidation(data.AddOwner.firstName)
     await homePage.lastnameFieldValidation(data.AddOwner.lastName)
     await homePage.addressFieldValidation(data.AddOwner.address)
@@ -90,3 +92,21 @@ Then(/^Numeric error message gets displayed to the user below the telephone fiel
     const TelephoneNonNumericValidation = await homePage.telephoneErrorMsgValidation()
     expect(TelephoneNonNumericValidation[0]).to.be.equal(data.FieldValidationErrorMessage.TelephonevalidationErrorMsg)
 });
+When(/^User has entered invalid telephone digits in telephone field$/, async function () {
+    await homePage.firstnameFieldValidation(data.AddOwner.firstName)
+    await homePage.lastnameFieldValidation(data.AddOwner.lastName)
+    await homePage.addressFieldValidation(data.AddOwner.address)
+    await homePage.cityFieldValidation(data.AddOwner.city)
+    await homePage.telephoneNumberValidation(data.AddOwner.digits)
+    await homePage.AddOwner()
+});
+Then(/^Error message gets displayed to the user below the telephone field$/, async function () {
+    const TelephoneNonNumericValidation = await homePage.telephoneErrorMsgValidation()
+    expect(TelephoneNonNumericValidation[0]).to.be.equal(data.FieldValidationErrorMessage.TelephonevalidationErrorMsg)
+});
+
+
+
+  // assertion.softContains(TelephoneEmptyFieldValidation[0],data.FieldValidationErrorMessage.TelephonevalidationErrorMsg)
+    // assertion.softContains(TelephoneEmptyFieldValidation[1],data.FieldValidationErrorMessage.Errormsg)
+    // assertion.softAssertAll();
