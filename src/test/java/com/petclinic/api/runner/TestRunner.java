@@ -8,9 +8,8 @@ import cucumber.api.junit.Cucumber;
 @CucumberOptions(
 
 		features = { "./src/test/java/com/petclinic/api" }, glue = { "com.petclinic.api.stepDefinitions" }, tags = {
-				"@Test" }, plugin = {
-						"com.cucumber.listener.ExtentCucumberFormatter:reports//API_Report.html",
-						"html:output/html-reports" }, monochrome = true)
+				"@Regression" }, plugin = {
+						"com.cucumber.listener.ExtentCucumberFormatter:reports//API_Report.html"}, monochrome = true)
 public class TestRunner {
 
 }
